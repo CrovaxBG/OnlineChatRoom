@@ -1,0 +1,8 @@
+﻿@model OnlineChatRoom.ViewModels.UserMessageViewModel
+
+<div>
+    <img src="@Model.User.Avatar" class="rounded-circle border d-inline-block" height="40" width="40" alt="avatar"/>
+    <p class="d-inline-block" style="font-size: 20px; margin-right:5px;">@Model.User.UserName</p> 
+    <p class="d-inline-block" style="font-size: 14px;">@Model.FormattedTimestamp</p>
+    <p style="font-size: 16px;">@Model.Message</p>
+</div>

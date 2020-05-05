@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using OnlineChatRoom.DataAccess.Models;
+using OnlineChatRoom.Hub;
 
 namespace OnlineChatRoom
 {
@@ -25,7 +27,7 @@ namespace OnlineChatRoom
         public void ConfigureServices(IServiceCollection services)
         {
             ConnectionString = Configuration.GetSection("ConnectionStrings:DefaultConnection").Value;
-
+            services.AddSignalR().AddAzureSignalR(Configuration.GetConnectionString("SignalRConnection"));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddMvc().AddRazorPagesOptions(options =>
@@ -39,16 +41,18 @@ namespace OnlineChatRoom
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped(provider => new ChatContext(ConnectionString));
+            services.AddScoped(provider =>
+                new BlobServiceClient(Configuration.GetConnectionString("BlobStorageConnection")));
 
             services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
                 {
-                    options.User.RequireUniqueEmail = true;
-                    options.SignIn.RequireConfirmedAccount = true;
+                    options.User.RequireUniqueEmail = false;
+                    options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
-                    options.Password.RequiredLength = 0;
+                    options.Password.RequiredLength = 5;
                     options.Password.RequiredUniqueChars = 0;
                 })
                 .AddEntityFrameworkStores<ChatContext>()
@@ -75,14 +79,35 @@ namespace OnlineChatRoom
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseFileServer();
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "Default",
+                    template: "{area=Home}/{page=Index}");
+
+
+                routes.MapRoute(
+                    name: "defaultControllers",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapHub<Chat>("/signalRChat");
+
+                endpoints.MapControllerRoute(name: "chat",
+                    pattern: "chat/{action}",
+                    defaults: new { controller = "Chat", action = "index" });
+                endpoints.MapControllerRoute(name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

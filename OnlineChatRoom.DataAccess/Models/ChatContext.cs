@@ -12,7 +12,7 @@ namespace OnlineChatRoom.DataAccess.Models
         {
         }
 
-        public ChatContext(DbContextOptions<ChatContext> options)
+        public ChatContext(DbContextOptions options)
             : base(options)
         {
         }
@@ -99,6 +99,11 @@ namespace OnlineChatRoom.DataAccess.Models
             modelBuilder.Entity<AspNetUsers>(entity =>
             {
                 entity.Property(e => e.Id).HasMaxLength(100);
+
+                entity.Property(e => e.Avatar)
+                    .IsRequired()
+                    .HasMaxLength(1024)
+                    .HasDefaultValueSql("(N'https://chatavatarstorageaccount.blob.core.windows.net/useravatars/00000000-0000-0000-0000-000000000000?sv=2019-10-10&ss=b&srt=sco&sp=rwdlac&se=2020-05-05T02:16:10Z&st=2020-05-04T18:16:10Z&spr=https&sig=2TknmyNGkDfJltmW4EvSnkRPAFnNVqflM%2BvRSDJzbbU%3D''''')");
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 

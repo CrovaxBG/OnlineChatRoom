@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="IServices\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineChatRoom.Common\OnlineChatRoom.Common.csproj" />
+    <ProjectReference Include="..\OnlineChatRoom.DataAccess\OnlineChatRoom.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

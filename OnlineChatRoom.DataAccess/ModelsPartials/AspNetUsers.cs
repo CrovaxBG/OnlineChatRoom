@@ -11,5 +11,7 @@ namespace OnlineChatRoom.DataAccess.Models
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual ICollection<AspNetUsersSession> AspNetUsersSession { get; set; }
+
+        public string Avatar { get; set; }
     }
 }
