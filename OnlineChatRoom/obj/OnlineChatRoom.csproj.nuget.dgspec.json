@@ -269,6 +269,10 @@
               "target": "Package",
               "version": "[3.0.0, )"
             },
+            "Microsoft.Azure.AppConfiguration.AspNetCore": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
             "Microsoft.Azure.SignalR": {
               "target": "Package",
               "version": "[1.4.3, )"

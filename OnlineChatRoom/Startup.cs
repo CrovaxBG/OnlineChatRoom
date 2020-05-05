@@ -26,8 +26,8 @@ namespace OnlineChatRoom
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ConnectionString = Configuration.GetSection("ConnectionStrings:DefaultConnection").Value;
-            services.AddSignalR().AddAzureSignalR(Configuration.GetConnectionString("SignalRConnection"));
+            ConnectionString = Configuration["DatabaseConnection"];
+            services.AddSignalR().AddAzureSignalR(Configuration["SignalRConnection"]);
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddMvc().AddRazorPagesOptions(options =>
@@ -38,11 +38,10 @@ namespace OnlineChatRoom
                 .AddMvcOptions(options => options.EnableEndpointRouting = false);
 
             services.AddDbContext<ChatContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(ConnectionString));
             services.AddScoped(provider => new ChatContext(ConnectionString));
             services.AddScoped(provider =>
-                new BlobServiceClient(Configuration.GetConnectionString("BlobStorageConnection")));
+                new BlobServiceClient(Configuration["BlobStorageConnection"]));
 
             services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
                 {
@@ -75,6 +74,8 @@ namespace OnlineChatRoom
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseAzureAppConfiguration();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

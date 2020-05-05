@@ -16,11 +16,21 @@ namespace OnlineChatRoom
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureAppConfiguration((context, config) =>
+                    {
+                        var settings = config.Build();
+
+                        var appConfigurationConnectionString = settings["AzureAppConfiguration:ConnectionString"];
+                        config.AddAzureAppConfiguration(appConfigurationConnectionString);
+                    });
+
                     webBuilder.UseStartup<Startup>();
                 });
+        }
     }
 }
