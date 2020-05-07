@@ -27,9 +27,6 @@ namespace OnlineChatRoom.Pages
 
         public IndexModel(BlobServiceClient blobServiceClient, UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager)
         {
-            //var a = userManager.CreateAsync(
-            //    new AspNetUsers {UserName = "Crovax", Email = "denis12251@abv.bg", EmailConfirmed = true}, "123456789").Result;
-
             _blobServiceClient = blobServiceClient;
             _userManager = userManager;
             _signInManager = signInManager;

@@ -19,7 +19,7 @@ namespace OnlineChatRoom.Pages
 
         public ChatRoomsLobbyModel(ILoggerService serc)
         {
-            serc.Log("123");
+            serc.LogAsync("123");
         }
 
         public void OnGet()
