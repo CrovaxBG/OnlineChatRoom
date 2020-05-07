@@ -1,4 +1,12 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function displayBusyIndicator() {
+    $('.loading').show();
+}
 
-// Write your Javascript code.
+$(document).ready(function () {
+    $(document).on('submit', 'form',
+        function () {
+            if ($(document.activeElement).attr('id') == 'buttonBusyIndicator' || $(this).attr('id') == 'buttonBusyIndicator') {
+                displayBusyIndicator();
+            }
+        });
+});

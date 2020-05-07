@@ -47,7 +47,7 @@ namespace OnlineChatRoom.Pages
             if (User.Identity.IsAuthenticated)
             {
                 //TODO redirect to my account
-                return RedirectToPage("/Home/Index");
+                return RedirectToPage("/ChatRoomsLobby");
             }
 
             return Page();

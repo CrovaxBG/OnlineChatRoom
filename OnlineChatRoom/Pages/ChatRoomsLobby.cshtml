@@ -9,7 +9,7 @@
     <h1 class="display-4">ChatRoomsLobby</h1>
     <hr />
     <br />
-    <form method="post">
+    <form method="post" id="buttonBusyIndicator">
         <div asp-validation-summary="All" class="text-danger help-block"></div>
         <div class="d-inline-block col-md-8">
             <div class="float-left" style="width: 40%;">
@@ -18,7 +18,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" asp-for="ExistingRoomName" placeholder="Enter the room's name...">
                     <div class="input-group-append">
-                        <button class="btn btn-primary input-group-text float-right" asp-page-handler="JoinExisting">Join</button>
+                        <button type="submit" class="btn btn-primary input-group-text float-right" asp-page-handler="JoinExisting">Join</button>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" asp-for="NewRoomName" placeholder="Enter the room's name...">
                     <div class="input-group-append">
-                        <button class="btn btn-primary input-group-text float-right" asp-page-handler="CreateNew">Join</button>
+                        <button type="submit" class="btn btn-primary input-group-text float-right" asp-page-handler="CreateNew">Join</button>
                     </div>
                 </div>
             </div>
