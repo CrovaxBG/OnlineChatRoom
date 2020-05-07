@@ -443,11 +443,8 @@ D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\Azure.Secu
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\Microsoft.Azure.AppConfiguration.AspNetCore.dll
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Configuration.AzureAppConfiguration.dll
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.csproj.CoreCompileInputs.cache
-D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.MvcApplicationPartsAssemblyInfo.cs
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.MvcApplicationPartsAssemblyInfo.cache
-D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.exe
-D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.dll
-D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.pdb
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\Razor\Views\Chatting\ChatRoom.cshtml.g.cs
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\Razor\Pages\ChatRoomsLobby.cshtml.g.cs
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\Razor\Pages\Shared\_BusyIndicatorPartial.cshtml.g.cs
+D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\OnlineChatRoom.Infrastructure.exe

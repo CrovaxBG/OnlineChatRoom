@@ -10,6 +10,7 @@ namespace OnlineChatRoom.DataAccess.Models
     {
         public virtual DbSet<Connections> Connections { get; set; }
         public virtual DbSet<Rooms> Rooms { get; set; }
+        public virtual DbSet<Log> Log { get; set; }
 
         public ChatContext()
         {
@@ -23,6 +24,15 @@ namespace OnlineChatRoom.DataAccess.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             OnModelCreatingPartial(modelBuilder);
+
+            modelBuilder.Entity<Log>(entity =>
+            {
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Message).HasMaxLength(512);
+
+                entity.Property(e => e.StackTrace).HasMaxLength(1024);
+            });
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
                 entity.Property(e => e.RoleId)
