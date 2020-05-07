@@ -3005,7 +3005,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
-          "OnlineChatRoom.Common": "1.0.0",
           "OnlineChatRoom.DataAccess": "1.0.0"
         },
         "compile": {
@@ -3013,16 +3012,6 @@
         },
         "runtime": {
           "bin/placeholder/OnlineChatRoom.Infrastructure.dll": {}
-        }
-      },
-      "TestAPI/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.0",
-        "compile": {
-          "bin/placeholder/TestAPI.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/TestAPI.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -9417,11 +9406,6 @@
       "type": "project",
       "path": "../OnlineChatRoom.Infrastructure/OnlineChatRoom.Infrastructure.csproj",
       "msbuildProject": "../OnlineChatRoom.Infrastructure/OnlineChatRoom.Infrastructure.csproj"
-    },
-    "TestAPI/1.0.0": {
-      "type": "project",
-      "path": "../TestAPI/TestAPI.csproj",
-      "msbuildProject": "../TestAPI/TestAPI.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9441,7 +9425,6 @@
       "OnlineChatRoom.Common >= 1.0.0",
       "OnlineChatRoom.DataAccess >= 1.0.0",
       "OnlineChatRoom.Infrastructure >= 1.0.0",
-      "TestAPI >= 1.0.0",
       "WindowsAzure.Storage >= 9.3.3"
     ]
   },
@@ -9479,9 +9462,6 @@
             },
             "D:\\Projects\\ASP\\OnlineChatRoom\\OnlineChatRoom.Infrastructure\\OnlineChatRoom.Infrastructure.csproj": {
               "projectPath": "D:\\Projects\\ASP\\OnlineChatRoom\\OnlineChatRoom.Infrastructure\\OnlineChatRoom.Infrastructure.csproj"
-            },
-            "D:\\Projects\\ASP\\OnlineChatRoom\\TestAPI\\TestAPI.csproj": {
-              "projectPath": "D:\\Projects\\ASP\\OnlineChatRoom\\TestAPI\\TestAPI.csproj"
             }
           }
         }

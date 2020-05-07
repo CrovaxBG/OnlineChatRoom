@@ -1,6 +1,6 @@
 using System;
 
-namespace TestAPI
+namespace OnlineChatRoom.Infrastructure
 {
     public class WeatherForecast
     {

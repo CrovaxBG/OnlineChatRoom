@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -30,7 +30,6 @@
     <ProjectReference Include="..\OnlineChatRoom.Common\OnlineChatRoom.Common.csproj" />
     <ProjectReference Include="..\OnlineChatRoom.DataAccess\OnlineChatRoom.DataAccess.csproj" />
     <ProjectReference Include="..\OnlineChatRoom.Infrastructure\OnlineChatRoom.Infrastructure.csproj" />
-    <ProjectReference Include="..\TestAPI\TestAPI.csproj" />
   </ItemGroup>
 
 </Project>
