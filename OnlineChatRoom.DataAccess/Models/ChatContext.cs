@@ -8,6 +8,9 @@ namespace OnlineChatRoom.DataAccess.Models
     public partial class ChatContext : IdentityDbContext<AspNetUsers, AspNetRoles, string, AspNetUserClaims,
         AspNetUserRoles, AspNetUserLogins, AspNetRoleClaims, AspNetUserTokens>
     {
+        public virtual DbSet<Connections> Connections { get; set; }
+        public virtual DbSet<Rooms> Rooms { get; set; }
+
         public ChatContext()
         {
         }
@@ -103,7 +106,7 @@ namespace OnlineChatRoom.DataAccess.Models
                 entity.Property(e => e.Avatar)
                     .IsRequired()
                     .HasMaxLength(1024)
-                    .HasDefaultValueSql("(N'https://chatavatarstorageaccount.blob.core.windows.net/useravatars/00000000-0000-0000-0000-000000000000?sv=2019-10-10&ss=b&srt=sco&sp=rwdlac&se=2020-05-05T02:16:10Z&st=2020-05-04T18:16:10Z&spr=https&sig=2TknmyNGkDfJltmW4EvSnkRPAFnNVqflM%2BvRSDJzbbU%3D''''')");
+                    .HasDefaultValueSql("(N'https://chatavatarstorageaccount.blob.core.windows.net/useravatars/00000000-0000-0000-0000-000000000000?sv=2019-10-10&ss=b&srt=co&sp=rwdlacx&se=2020-06-04T21:13:42Z&st=2020-05-05T13:13:42Z&spr=https&sig=g7ljMk1rnyyMH5GyhmioBM2sf2Rj5ELbh1sIkhxBR%2F0%3D')");
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
@@ -129,6 +132,38 @@ namespace OnlineChatRoom.DataAccess.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AspNetUsersSession_AspNetUsers");
+            });
+
+            modelBuilder.Entity<Connections>(entity =>
+            {
+                entity.Property(e => e.RoomName)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.UserAgent).HasMaxLength(256);
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.HasOne(d => d.RoomNameNavigation)
+                    .WithMany(p => p.Connections)
+                    .HasForeignKey(d => d.RoomName)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Connections_Rooms");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Connections)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Connections_AspNetUsers");
+            });
+
+            modelBuilder.Entity<Rooms>(entity =>
+            {
+                entity.HasKey(e => e.RoomName);
+
+                entity.Property(e => e.RoomName).HasMaxLength(128);
             });
         }
 

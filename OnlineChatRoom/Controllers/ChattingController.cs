@@ -19,6 +19,14 @@ namespace OnlineChatRoom.Controllers
             _userManager = userManager;
         }
 
+        public async Task<IActionResult> JoinChatRoom(string roomName)
+        {
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            return View("~/Views/Chatting/ChatRoom.cshtml",
+                new ChatRoomViewModel {CurrentUser = currentUser, RoomName = roomName});
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetPartialUserMessage(string username, string msg, DateTime timestamp)
         {

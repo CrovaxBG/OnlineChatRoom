@@ -18,6 +18,7 @@ namespace OnlineChatRoom.Hub
         {
             try
             {
+                //Context.GetHttpContext().Request.Headers["User-Agent"];
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
             }
             catch (Exception e)

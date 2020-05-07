@@ -448,3 +448,5 @@ D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChat
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.exe
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.dll
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.pdb
+D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\Razor\Views\Chatting\ChatRoom.cshtml.g.cs
+D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\Razor\Pages\ChatRoomsLobby.cshtml.g.cs

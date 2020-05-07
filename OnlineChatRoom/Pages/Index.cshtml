@@ -3,214 +3,25 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Home page";
-    var chatClass = string.IsNullOrEmpty(Model.Username) ? "d-none" : string.Empty;
-    var registrationClass = !string.IsNullOrEmpty(Model.Username) ? "d-none" : string.Empty;
 }
 
-<div id="usernameRegistration" class="text-center @registrationClass">
+<div id="usernameRegistration" class="text-center">
     <h1 class="display-4">Welcome!</h1>
     <br />
     <form id="username_form" method="post">
+        <div asp-validation-summary="All" class="text-danger help-block"></div>
+        <hr/>
         <div class="form-group col-md-4 offset-4">
-            <label asp-for="Username">Username</label>
-            <input asp-for="Username" type="text" class="form-control" id="usernameInput" aria-describedby="emailHelp" placeholder="Enter your nickname">
+            <input asp-for="Username" type="text" class="form-control" placeholder="Enter your nickname">
             <span asp-validation-for="Username" class="text-danger"></span>
-            <small class="form-text text-muted">A username is all you'll need to chat!</small>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group col-md-4 offset-4">
+            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <small class="form-text text-muted">A username and password is all you'll need to chat!</small>
+        </div>
+        <div class="col-md-4 offset-4">
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>
     </form>
 </div>
-
-<div id="chat" class="@chatClass">
-    <div class="container card">
-        <div id="messages" class="card-body overflow-auto" style="max-height: 490px;">
-            <p id="innerElement"></p>
-        </div>
-        <div class="card-footer rounded">
-            <div class="input-group mb-3">
-                <input id="message" type="text" class="form-control" aria-label="Username" aria-describedby="sendmessage" placeholder="Type message and press Enter to send...">
-                <div class="input-group-append">
-                    <button class="btn btn-primary input-group-text float-right" id="sendmessage">Send</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal alert alert-danger fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>Connection Error...</div>
-                    <div><strong style="font-size: 1.5em;">Hit Refresh/F5</strong> to rejoin. ;)</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts
-{
-    <partial name="_ValidationScriptsPartial" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var username = '@Model.Username';
-
-            var messageInput = $('#message');
-            if ('@registrationClass') {
-                setupConnection();
-            }
-
-            function createMessageEntry(encodedName, encodedMsg) {
-                var entry = document.createElement('div');
-                entry.classList.add("message-entry");
-                var request;
-                if (encodedName === "_SYSTEM_") {
-                    request = ajaxSystemMessagePartial(encodedMsg);
-                } else {
-                    if (encodedName) {
-                        request = ajaxUserMessagePartial(encodedName, encodedMsg);
-                    } else {
-                        alert('Active account is required in order to chat.');
-                        return entry;
-                    }
-                }
-
-                request.done(function(data) {
-                    entry.innerHTML = data;
-                });
-                request.fail(function(jqXHR) {
-                    alert(jqXHR.data);
-                });
-                return entry;
-            }
-
-            function ajaxSystemMessagePartial(msg) {
-                var timestamp = formatTimestamp(new Date());
-                return $.ajax({
-                    url: '/Chatting/GetPartialSystemMessage',
-                    method: 'GET',
-                    accepts: 'html',
-                    dataType: 'html',
-                    data: {
-                        msg: msg,
-                        timestamp: timestamp
-                    }
-                });
-            }
-
-            function ajaxUserMessagePartial(username, msg) {
-                var timestamp = formatTimestamp(new Date());
-                return $.ajax({
-                    url: '/Chatting/GetPartialUserMessage',
-                    method: 'GET',
-                    accepts: 'html',
-                    dataType: 'html',
-                    data: {
-                        username: username,
-                        msg: msg,
-                        timestamp: timestamp
-                    }
-                });
-            }
-
-            function formatTimestamp(date) {
-                return date.getDate() +
-                    "/" +
-                    (date.getMonth() + 1) +
-                    "/" +
-                    date.getFullYear() +
-                    " " +
-                    date.getHours() +
-                    ":" +
-                    date.getMinutes() +
-                    ":" +
-                    date.getSeconds();
-            }
-
-            function bindConnectionMessage(connection) {
-                var messageCallback = function(name, message) {
-                    if (!message) return;
-
-                    var encodedName = name;
-                    var encodedMsg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                    var messageEntry = createMessageEntry(encodedName, encodedMsg);
-
-                    var messageBox = $('#messages');
-                    messageBox.append(messageEntry);
-                    messageBox.animate({ scrollTop: messageBox[0].scrollHeight }, 1000);
-                };
-
-                connection.on('broadcastMessage', messageCallback);
-                connection.onclose(onConnectionError);
-            }
-
-            function onConnected(connection) {
-                console.log('connection started');
-                var roomName;
-                if (username.match("^a")) {
-                    roomName = 'room1';
-                } else if (username.match('^b')) {
-                    roomName = 'room2';
-                } else {
-                    roomName = 'room3';
-                }
-
-                connection.send('joinRoom', roomName);
-                connection.send('broadcastMessage', roomName, '_SYSTEM_', username + ' JOINED');
-                $('#sendmessage').on('click',
-                    function (event) {
-                        if (username.match("^a")) {
-                            roomName = 'room1';
-                        } else if (username.match('^b')) {
-                            roomName = 'room2';
-                        } else {
-                            roomName = 'room3';
-                        }
-
-                        if (messageInput.val()) {
-                            connection.send('broadcastMessage', roomName, username, messageInput.val());
-                        }
-
-                        // Clear text box and reset focus for next comment.
-                        messageInput.val('');
-                        messageInput.focus();
-                        event.preventDefault();
-                    });
-                $('#message').on('keypress',
-                    function(event) {
-                        if (event.which === 13) {
-                            event.preventDefault();
-                            $('#sendmessage').click();
-                            return false;
-                        }
-                    });
-            }
-
-            function onConnectionError(error) {
-                alert(error);
-                if (error && error.message) {
-                    console.error(error.message);
-                }
-                var modal = $('#modalError');
-                modal.addClass('in');
-                modal.style = 'display: block;';
-            }
-
-            function setupConnection() {
-                var connection = new signalR.HubConnectionBuilder()
-                    .withUrl('/signalRChat')
-                    .withAutomaticReconnect([0,1000,5000,null])
-                    .build();
-                bindConnectionMessage(connection);
-                connection.start()
-                    .then(function () {
-                        onConnected(connection);
-                    })
-                    .catch(function(error) {
-                        console.error(error.message);
-                    });
-            }
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>
-}

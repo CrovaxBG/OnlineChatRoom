@@ -19,21 +19,41 @@ namespace OnlineChatRoom.Pages
     {
         private readonly BlobServiceClient _blobServiceClient;
         private readonly UserManager<AspNetUsers> _userManager;
+        private readonly SignInManager<AspNetUsers> _signInManager;
 
         [Required]
         [StringLength(64)]
+        [BindProperty]
         public string Username { get; set; }
 
-        public IndexModel(BlobServiceClient blobServiceClient, UserManager<AspNetUsers> userManager)
+        [Required]
+        [StringLength(64)]
+        [MinLength(5)]
+        [BindProperty]
+        public string Password { get; set; }
+
+        public IndexModel(BlobServiceClient blobServiceClient, UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager)
         {
             //var a = userManager.CreateAsync(
             //    new AspNetUsers {UserName = "Crovax", Email = "denis12251@abv.bg", EmailConfirmed = true}, "123456789").Result;
 
             _blobServiceClient = blobServiceClient;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGetAsync()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                //TODO redirect to my account
+                return RedirectToPage("/Home/Index");
+            }
+
+            return Page();
+        }
+
+        public async Task OnGet213()
         {
             ////Create a unique name for the container
             //string containerName = "useravatars";
@@ -50,16 +70,25 @@ namespace OnlineChatRoom.Pages
             //uploadFileStream.Close();
         }
 
-        //TODO rework - move to controller, send ajax from view and wait for response, unique names add email etc
-
-        public async Task OnPost(string username)
+        public async Task<IActionResult> OnPost()
         {
-            if (!string.IsNullOrEmpty(username))
+            if (ModelState.IsValid && !string.IsNullOrEmpty(Username))
             {
-                Username = username;
-                var a = _userManager.CreateAsync(
-                    new AspNetUsers { UserName = username, Email = "fake@fake.com", EmailConfirmed = false }, "12345").Result;
+                var res = await _userManager.CreateAsync(
+                    new AspNetUsers { UserName = Username, Email = "fake@fake.com", EmailConfirmed = false }, Password);
+                if (res.Succeeded)
+                {
+                    var user = await _userManager.FindByNameAsync(Username);
+                    await _signInManager.SignInAsync(user, false);
+                    return RedirectToPage("/ChatRoomsLobby");
+                }
+                foreach (var error in res.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
+
+            return Page();
 
         }
     }

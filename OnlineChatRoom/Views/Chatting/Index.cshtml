@@ -1,4 +1,13 @@
-﻿<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Join a chat room</p>
+﻿<div id="usernameRegistration" class="text-center">
+    <h1 class="display-4">Welcome!</h1>
+    <br />
+    <form id="username_form" method="post">
+        <div class="form-group col-md-4 offset-4">
+            <label asp-for="Username">Username</label>
+            <input asp-for="Username" type="text" class="form-control" id="usernameInput" aria-describedby="emailHelp" placeholder="Enter your nickname">
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <small class="form-text text-muted">A username and password is all you'll need to chat!</small>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>

@@ -1,0 +1,39 @@
+﻿@page
+@model OnlineChatRoom.Pages.ChatRoomsLobbyModel
+@{
+    ViewData["Title"] = "ChatRoomsLobby";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h1 class="display-4">ChatRoomsLobby</h1>
+    <hr />
+    <br />
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger help-block"></div>
+        <div class="d-inline-block col-md-8">
+            <div class="float-left" style="width: 40%;">
+                <h5>Join an existing room</h5>
+                <br/>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" asp-for="ExistingRoomName" placeholder="Enter the room's name...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary input-group-text float-right" asp-page-handler="JoinExisting">Join</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="float-right" style="width: 40%;">
+                <h5>Create a new room</h5>
+                <br/>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" asp-for="NewRoomName" placeholder="Enter the room's name...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary input-group-text float-right" asp-page-handler="CreateNew">Join</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
