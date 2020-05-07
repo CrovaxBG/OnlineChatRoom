@@ -3005,6 +3005,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
+          "Microsoft.Extensions.Logging.Debug": "3.0.0",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0",
           "OnlineChatRoom.DataAccess": "1.0.0"
         },
         "compile": {

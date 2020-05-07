@@ -448,3 +448,4 @@ D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\Razor\View
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\Razor\Pages\ChatRoomsLobby.cshtml.g.cs
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\Razor\Pages\Shared\_BusyIndicatorPartial.cshtml.g.cs
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\OnlineChatRoom.Infrastructure.exe
+D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.MvcApplicationPartsAssemblyInfo.cs
