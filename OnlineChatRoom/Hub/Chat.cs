@@ -4,11 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using OnlineChatRoom.Common.DTOs;
+using OnlineChatRoom.IServices;
 
 namespace OnlineChatRoom.Hub
 {
     public class Chat : Microsoft.AspNetCore.SignalR.Hub
     {
+        private readonly ILoggerService _loggerService;
+
+        public Chat(ILoggerService loggerService)
+        {
+            _loggerService = loggerService;
+        }
+
         public override Task OnConnectedAsync()
         {
             return base.OnConnectedAsync();
@@ -23,32 +32,34 @@ namespace OnlineChatRoom.Hub
             }
             catch (Exception e)
             {
-                //TODO add logging
+                await _loggerService.LogAsync(new LogDTO
+                    {Date = DateTime.Now, Message = e.Message, StackTrace = e.StackTrace});
             }
         }
 
-        public Task LeaveRoom(string roomName)
+        public async Task LeaveRoom(string roomName)
         {
             try
             {
-                return Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
+                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
             }
             catch (Exception e)
             {
-                //TODO add logging
-                return null;
+                await _loggerService.LogAsync(new LogDTO
+                    { Date = DateTime.Now, Message = e.Message, StackTrace = e.StackTrace });
             }
         }
 
-        public void BroadcastMessage(string roomName, string name, string message)
+        public async Task BroadcastMessage(string roomName, string name, string message)
         {
             try
             {
-                Clients.Group(roomName).SendAsync("broadcastMessage", name, message);
+                await Clients.Group(roomName).SendAsync("broadcastMessage", name, message);
             }
             catch (Exception e)
             {
-                //TODO add logging
+                await _loggerService.LogAsync(new LogDTO
+                    { Date = DateTime.Now, Message = e.Message, StackTrace = e.StackTrace });
             }
         }
 

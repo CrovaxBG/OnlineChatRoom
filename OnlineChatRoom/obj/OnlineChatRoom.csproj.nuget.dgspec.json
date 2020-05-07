@@ -37,6 +37,12 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -171,6 +177,9 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
+              "D:\\Projects\\ASP\\OnlineChatRoom\\OnlineChatRoom.Common\\OnlineChatRoom.Common.csproj": {
+                "projectPath": "D:\\Projects\\ASP\\OnlineChatRoom\\OnlineChatRoom.Common\\OnlineChatRoom.Common.csproj"
+              },
               "D:\\Projects\\ASP\\OnlineChatRoom\\OnlineChatRoom.DataAccess\\OnlineChatRoom.DataAccess.csproj": {
                 "projectPath": "D:\\Projects\\ASP\\OnlineChatRoom\\OnlineChatRoom.DataAccess\\OnlineChatRoom.DataAccess.csproj"
               }
@@ -186,6 +195,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -277,6 +290,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Azure.Storage.Blobs": {
               "target": "Package",
               "version": "[12.4.1, )"

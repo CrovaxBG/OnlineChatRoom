@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OnlineChatRoom.IServices;
 
 namespace OnlineChatRoom.Pages
 {
@@ -15,7 +16,12 @@ namespace OnlineChatRoom.Pages
 
         [BindProperty]
         public string NewRoomName { get; set; }
-     
+
+        public ChatRoomsLobbyModel(ILoggerService serc)
+        {
+            serc.Log("123");
+        }
+
         public void OnGet()
         {
 

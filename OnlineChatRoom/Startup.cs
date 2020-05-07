@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,8 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using OnlineChatRoom.Common;
 using OnlineChatRoom.DataAccess.Models;
 using OnlineChatRoom.Hub;
+using OnlineChatRoom.IServices;
+using OnlineChatRoom.MappingConfiguration;
+using OnlineChatRoom.Services;
 
 namespace OnlineChatRoom
 {
@@ -48,6 +53,13 @@ namespace OnlineChatRoom
             services.AddScoped(provider =>
                 new BlobServiceClient(Configuration["BlobStorageConnection"]));
 
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile<EntityProfile>();
+            });
+            var mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
                 {
                     options.User.RequireUniqueEmail = false;
@@ -66,6 +78,19 @@ namespace OnlineChatRoom
 
             services.AddControllers()
                 .AddNewtonsoftJson(x => { x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
+
+            var host = Configuration["Host"];
+#if DEBUG
+            host = ConfigurationResource.Localhost;
+#endif
+
+            SetupHttpClients(services, host);
+        }
+
+        private void SetupHttpClients(IServiceCollection services, string host)
+        {
+            var loggerControllerBaseAddress = new Uri(host + "api/logger/");
+            services.AddHttpClient<ILoggerService, LoggerService>(client => client.BaseAddress = loggerControllerBaseAddress);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
