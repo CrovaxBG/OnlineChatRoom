@@ -9,7 +9,7 @@
 
 <div id="usernameRegistration" class="text-center @registrationClass">
     <h1 class="display-4">Welcome!</h1>
-    <br/>
+    <br />
     <form id="username_form" method="post">
         <div class="form-group col-md-4 offset-4">
             <label asp-for="Username">Username</label>
@@ -49,7 +49,7 @@
 
 @section Scripts
 {
-    <partial name="_ValidationScriptsPartial"/>
+    <partial name="_ValidationScriptsPartial" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -141,18 +141,34 @@
                 };
 
                 connection.on('broadcastMessage', messageCallback);
-                connection.on('echo', messageCallback);
                 connection.onclose(onConnectionError);
             }
 
             function onConnected(connection) {
                 console.log('connection started');
-                connection.send('broadcastMessage', '_SYSTEM_', username + ' JOINED');
+                var roomName;
+                if (username.match("^a")) {
+                    roomName = 'room1';
+                } else if (username.match('^b')) {
+                    roomName = 'room2';
+                } else {
+                    roomName = 'room3';
+                }
+
+                connection.send('joinRoom', roomName);
+                connection.send('broadcastMessage', roomName, '_SYSTEM_', username + ' JOINED');
                 $('#sendmessage').on('click',
-                    function(event) {
-                        // Call the broadcastMessage method on the hub.
+                    function (event) {
+                        if (username.match("^a")) {
+                            roomName = 'room1';
+                        } else if (username.match('^b')) {
+                            roomName = 'room2';
+                        } else {
+                            roomName = 'room3';
+                        }
+
                         if (messageInput.val()) {
-                            connection.send('broadcastMessage', username, messageInput.val());
+                            connection.send('broadcastMessage', roomName, username, messageInput.val());
                         }
 
                         // Clear text box and reset focus for next comment.
@@ -167,14 +183,6 @@
                             $('#sendmessage').click();
                             return false;
                         }
-                    });
-                $('#echo').on('click',
-                    function(event) {
-                        connection.send('echo', username, messageInput.value);
-
-                        messageInput.val('');
-                        messageInput.focus();
-                        event.preventDefault();
                     });
             }
 
@@ -191,10 +199,11 @@
             function setupConnection() {
                 var connection = new signalR.HubConnectionBuilder()
                     .withUrl('/signalRChat')
+                    .withAutomaticReconnect([0,1000,5000,null])
                     .build();
                 bindConnectionMessage(connection);
                 connection.start()
-                    .then(function() {
+                    .then(function () {
                         onConnected(connection);
                     })
                     .catch(function(error) {

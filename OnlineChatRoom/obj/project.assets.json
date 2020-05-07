@@ -73,6 +73,9 @@
           "lib/netstandard2.0/Azure.Storage.Common.dll": {}
         }
       },
+      "Microsoft.AspNet.SignalR/2.4.1": {
+        "type": "package"
+      },
       "Microsoft.AspNetCore.Connections.Abstractions/3.0.0": {
         "type": "package",
         "dependencies": {
@@ -2985,6 +2988,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
+          "Microsoft.AspNet.SignalR": "2.4.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.3",
           "Microsoft.EntityFrameworkCore": "3.1.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.3",
@@ -3010,6 +3014,19 @@
         "runtime": {
           "bin/placeholder/OnlineChatRoom.Infrastructure.dll": {}
         }
+      },
+      "TestAPI/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "compile": {
+          "bin/placeholder/TestAPI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TestAPI.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -3092,6 +3109,17 @@
         "lib/netstandard2.0/Azure.Storage.Common.dll",
         "lib/netstandard2.0/Azure.Storage.Common.xml",
         "pkgicon.png"
+      ]
+    },
+    "Microsoft.AspNet.SignalR/2.4.1": {
+      "sha512": "aYbLVE5toZwv/qaQ0BiIZRRwN/00WKYzGjaYUWIQuI91xZ50nnAymWD1sxCZFN9XXDRq8bevM5ET9GmAeOI/Nw==",
+      "type": "package",
+      "path": "microsoft.aspnet.signalr/2.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "microsoft.aspnet.signalr.2.4.1.nupkg.sha512",
+        "microsoft.aspnet.signalr.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Connections.Abstractions/3.0.0": {
@@ -9389,6 +9417,11 @@
       "type": "project",
       "path": "../OnlineChatRoom.Infrastructure/OnlineChatRoom.Infrastructure.csproj",
       "msbuildProject": "../OnlineChatRoom.Infrastructure/OnlineChatRoom.Infrastructure.csproj"
+    },
+    "TestAPI/1.0.0": {
+      "type": "project",
+      "path": "../TestAPI/TestAPI.csproj",
+      "msbuildProject": "../TestAPI/TestAPI.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9408,6 +9441,7 @@
       "OnlineChatRoom.Common >= 1.0.0",
       "OnlineChatRoom.DataAccess >= 1.0.0",
       "OnlineChatRoom.Infrastructure >= 1.0.0",
+      "TestAPI >= 1.0.0",
       "WindowsAzure.Storage >= 9.3.3"
     ]
   },
@@ -9445,6 +9479,9 @@
             },
             "D:\\Projects\\ASP\\OnlineChatRoom\\OnlineChatRoom.Infrastructure\\OnlineChatRoom.Infrastructure.csproj": {
               "projectPath": "D:\\Projects\\ASP\\OnlineChatRoom\\OnlineChatRoom.Infrastructure\\OnlineChatRoom.Infrastructure.csproj"
+            },
+            "D:\\Projects\\ASP\\OnlineChatRoom\\TestAPI\\TestAPI.csproj": {
+              "projectPath": "D:\\Projects\\ASP\\OnlineChatRoom\\TestAPI\\TestAPI.csproj"
             }
           }
         }

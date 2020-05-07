@@ -1,3 +1,4 @@
+using System;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +28,11 @@ namespace OnlineChatRoom
         public void ConfigureServices(IServiceCollection services)
         {
             ConnectionString = Configuration["DatabaseConnection"];
-            services.AddSignalR().AddAzureSignalR(Configuration["SignalRConnection"]);
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.EnableDetailedErrors = true;
+                hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(1);
+            });//.AddAzureSignalR(Configuration["SignalRConnection"]);
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddMvc().AddRazorPagesOptions(options =>

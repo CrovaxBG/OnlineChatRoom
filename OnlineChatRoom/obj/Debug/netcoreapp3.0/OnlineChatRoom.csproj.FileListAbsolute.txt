@@ -445,3 +445,6 @@ D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\Microsoft.
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.csproj.CoreCompileInputs.cache
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.MvcApplicationPartsAssemblyInfo.cs
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.MvcApplicationPartsAssemblyInfo.cache
+D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.exe
+D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.dll
+D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\bin\Debug\netcoreapp3.0\TestAPI.pdb
