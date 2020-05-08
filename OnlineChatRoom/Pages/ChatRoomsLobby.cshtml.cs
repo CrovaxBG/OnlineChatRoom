@@ -1,30 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OnlineChatRoom.Common.DTOs;
 using OnlineChatRoom.IServices;
 
 namespace OnlineChatRoom.Pages
 {
     public class ChatRoomsLobbyModel : PageModel
     {
+        private readonly ILoggerService _loggerService;
+        private readonly IRoomsService _roomsService;
+
         [BindProperty]
         public string ExistingRoomName { get; set; }
 
         [BindProperty]
         public string NewRoomName { get; set; }
 
-        public ChatRoomsLobbyModel(ILoggerService serc)
+        public List<RoomsDTO> PopularRooms { get; set; }
+
+        public ChatRoomsLobbyModel(ILoggerService loggerService, IRoomsService roomsService)
         {
-            serc.LogAsync("123");
+            _loggerService = loggerService;
+            _roomsService = roomsService;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-
+            var rooms = await _roomsService.GetRoomsAsync();
+            PopularRooms = new List<RoomsDTO>(rooms.OrderByDescending(dto => dto.Connections.Count));
         }
 
         public async Task<IActionResult> OnPostJoinExisting()
@@ -34,8 +40,15 @@ namespace OnlineChatRoom.Pages
                 ModelState.AddModelError(string.Empty, "A room name is required.");
                 return Page();
             }
-            //TODO check if exists
-            return RedirectToAction("JoinChatRoom", "Chatting", routeValues: new {roomName = ExistingRoomName});
+
+            var room = await _roomsService.GetRoomAsync(ExistingRoomName);
+            if (room != null)
+            {
+                return RedirectToAction("JoinChatRoom", "Chatting", routeValues: new { roomName = ExistingRoomName });
+            }
+
+            ModelState.AddModelError(string.Empty, "Such room doesn't exist :/");
+            return Page();
         }
 
         public async Task<IActionResult> OnPostCreateNew()
@@ -45,8 +58,15 @@ namespace OnlineChatRoom.Pages
                 ModelState.AddModelError(string.Empty, "A room name is required.");
                 return Page();
             }
-            //TODo check if exists
-            return RedirectToAction("JoinChatRoom", "Chatting", routeValues: new { roomName = NewRoomName });
+            var room = await _roomsService.GetRoomAsync(NewRoomName);
+            if (room == null)
+            {
+                await _roomsService.CreateRoomAsync(new RoomsDTO {RoomName = NewRoomName});
+                return RedirectToAction("JoinChatRoom", "Chatting", routeValues: new { roomName = NewRoomName });
+            }
+
+            ModelState.AddModelError(string.Empty, "Such room already exist :/");
+            return Page();
         }
     }
 }

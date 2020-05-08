@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineChatRoom.DataAccess",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineChatRoom.Common", "OnlineChatRoom.Common\OnlineChatRoom.Common.csproj", "{967873AD-D08A-4528-95E8-8DEB9E96E45F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineChatRoom.Infrastructure", "OnlineChatRoom.Infrastructure\OnlineChatRoom.Infrastructure.csproj", "{EA4BE1EC-9D99-4B3C-910A-FAF795797E46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineChatRoom.Infrastructure", "OnlineChatRoom.Infrastructure\OnlineChatRoom.Infrastructure.csproj", "{EA4BE1EC-9D99-4B3C-910A-FAF795797E46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

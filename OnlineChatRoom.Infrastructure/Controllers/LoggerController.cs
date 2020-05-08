@@ -21,7 +21,7 @@ namespace OnlineChatRoom.Infrastructure.Controllers
         }
 
         [HttpGet]
-        [Route("GetLogs")]
+        [Route(nameof(GetLogs))]
         public IActionResult GetLogs()
         {
             try
@@ -35,7 +35,7 @@ namespace OnlineChatRoom.Infrastructure.Controllers
         }
 
         [HttpGet]
-        [Route("GetLog")]
+        [Route(nameof(GetLog))]
         public IActionResult GetLog(int? logId)
         {
             if (logId == null) { return BadRequest(); }
@@ -58,7 +58,7 @@ namespace OnlineChatRoom.Infrastructure.Controllers
         }
 
         [HttpPost]
-        [Route("AddLog")]
+        [Route(nameof(AddLog))]
         public IActionResult AddLog(LogDTO log)
         {
             if (!ModelState.IsValid) { return BadRequest(); }

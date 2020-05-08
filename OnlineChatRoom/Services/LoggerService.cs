@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using OnlineChatRoom.Common;
 using OnlineChatRoom.Common.DTOs;
 using OnlineChatRoom.Infrastructure.Controllers;
-using OnlineChatRoom.Infrastructure.Implementations.Controllers;
 using OnlineChatRoom.IServices;
 
 namespace OnlineChatRoom.Services

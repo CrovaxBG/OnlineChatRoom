@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using OnlineChatRoom.Common.DTO;
 using OnlineChatRoom.Common.DTOs;
 using OnlineChatRoom.DataAccess.Models;
 
@@ -14,6 +15,30 @@ namespace OnlineChatRoom.MappingConfiguration
         private void EntityDtoMaps()
         {
             CreateMap<Log, LogDTO>()
+                .ReverseMap();
+
+            CreateMap<Rooms, RoomsDTO>()
+                .ReverseMap();
+
+            CreateMap<AspNetUsers, AspNetUsersDTO>()
+                .ReverseMap();
+
+            CreateMap<AspNetUserClaims, AspNetUserClaimsDTO>()
+                .ReverseMap();
+
+            CreateMap<AspNetUserLogins, AspNetUserLoginsDTO>()
+                .ReverseMap();
+
+            CreateMap<AspNetUserRoles, AspNetUserRolesDTO>()
+                .ReverseMap();
+
+            CreateMap<AspNetUserTokens, AspNetUserTokensDTO>()
+                .ReverseMap();
+
+            CreateMap<AspNetRoleClaims, AspNetRoleClaimsDTO>()
+                .ReverseMap();
+
+            CreateMap<AspNetRoles, AspNetRolesDTO>()
                 .ReverseMap();
         }
     }
