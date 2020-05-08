@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using OnlineChatRoom.Common.DTO;
-using OnlineChatRoom.Common.DTOs;
 using OnlineChatRoom.DataAccess.Models;
 
 namespace OnlineChatRoom.MappingConfiguration
@@ -18,6 +17,9 @@ namespace OnlineChatRoom.MappingConfiguration
                 .ReverseMap();
 
             CreateMap<Rooms, RoomsDTO>()
+                .ReverseMap();
+
+            CreateMap<ChatConnections, ChatConnectionsDTO>()
                 .ReverseMap();
 
             CreateMap<AspNetUsers, AspNetUsersDTO>()

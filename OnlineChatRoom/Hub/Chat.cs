@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using OnlineChatRoom.Common.DTOs;
+using OnlineChatRoom.Common.DTO;
 using OnlineChatRoom.IServices;
 
 namespace OnlineChatRoom.Hub

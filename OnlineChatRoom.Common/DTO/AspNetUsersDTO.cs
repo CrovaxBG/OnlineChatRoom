@@ -38,7 +38,7 @@ namespace OnlineChatRoom.Common.DTO
             set;
         }
 
-        public ICollection<ConnectionsDTO> Connections
+        public ICollection<ChatConnectionsDTO> Connections
         {
             get;
             set;

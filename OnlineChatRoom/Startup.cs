@@ -91,8 +91,11 @@ namespace OnlineChatRoom
         {
             var loggerControllerBaseAddress = new Uri(host + "api/logger/");
             var roomsControllerBaseAddress = new Uri(host + "api/rooms/");
+            var chatConnectionsControllerBaseAddress = new Uri(host + "api/chatConnections/");
+
             services.AddHttpClient<ILoggerService, LoggerService>(client => client.BaseAddress = loggerControllerBaseAddress);
             services.AddHttpClient<IRoomsService, RoomsService>(client => client.BaseAddress = roomsControllerBaseAddress);
+            services.AddHttpClient<IChatConnectionsService, ChatConnectionsService>(client => client.BaseAddress = chatConnectionsControllerBaseAddress);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

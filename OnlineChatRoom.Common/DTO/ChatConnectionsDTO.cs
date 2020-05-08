@@ -1,16 +1,10 @@
-using OnlineChatRoom.Common.DTOs;
-
 namespace OnlineChatRoom.Common.DTO
 {
     using System;
-    using System.Text;
-    using System.Linq;
-    using System.Collections;
-    using System.Collections.Generic;
 
-    public class ConnectionsDTO
+    public class ChatConnectionsDTO
     {
-        public Int32 Id
+        public Guid Id
         {
             get;
             set;

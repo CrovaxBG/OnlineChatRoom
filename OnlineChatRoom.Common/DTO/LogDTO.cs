@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace OnlineChatRoom.Common.DTOs
+namespace OnlineChatRoom.Common.DTO
 {
     public class LogDTO
     {

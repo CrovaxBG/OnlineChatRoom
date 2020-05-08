@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using OnlineChatRoom.Common;
-using OnlineChatRoom.Common.DTOs;
+using OnlineChatRoom.Common.DTO;
 using OnlineChatRoom.Infrastructure.Controllers;
 using OnlineChatRoom.IServices;
 

@@ -9,47 +9,33 @@ namespace OnlineChatRoom.Infrastructure.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomsController : ControllerBase
+    public class ChatConnectionsController : ControllerBase
     {
         private readonly ChatContext _context;
         private readonly IMapper _mapper;
 
-        public RoomsController(ChatContext context, IMapper mapper)
+        public ChatConnectionsController(ChatContext context, IMapper mapper)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(context));
         }
 
         [HttpGet]
-        [Route(nameof(GetRooms))]
-        public IActionResult GetRooms()
+        [Route(nameof(GetChatConnection))]
+        public IActionResult GetChatConnection(Guid connectionId)
         {
-            try
-            {
-                return Ok(_context.Rooms.Select(_mapper.Map<RoomsDTO>));
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpGet]
-        [Route(nameof(GetRoom))]
-        public IActionResult GetRoom(string roomName)
-        {
-            if (roomName == null) { return BadRequest(); }
+            if (connectionId == Guid.Empty) { return BadRequest(); }
 
             try
             {
-                var room = _context.Rooms.FirstOrDefault(l => l.RoomName == roomName);
+                var connection = _context.ChatConnections.FirstOrDefault(l => l.ConnectionId == connectionId);
 
-                if (room == null)
+                if (connection == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(_mapper.Map<RoomsDTO>(room));
+                return Ok(_mapper.Map<ChatConnectionsDTO>(connection));
             }
             catch (Exception)
             {
@@ -58,17 +44,17 @@ namespace OnlineChatRoom.Infrastructure.Controllers
         }
 
         [HttpPost]
-        [Route(nameof(CreateRoom))]
-        public IActionResult CreateRoom(RoomsDTO room)
+        [Route(nameof(CreateChatConnection))]
+        public IActionResult CreateChatConnection(ChatConnectionsDTO connectionData)
         {
             if (!ModelState.IsValid) { return BadRequest(); }
             try
             {
-                var entity = _mapper.Map<Rooms>(room);
-                _context.Rooms.Add(entity);
+                var entity = _mapper.Map<ChatConnections>(connectionData);
+                _context.ChatConnections.Add(entity);
                 _context.SaveChanges();
 
-                return Ok(entity.RoomName);
+                return Ok(entity.ConnectionId);
             }
             catch (Exception)
             {
@@ -77,20 +63,20 @@ namespace OnlineChatRoom.Infrastructure.Controllers
         }
 
         [HttpDelete]
-        [Route(nameof(RemoveRoom))]
-        public IActionResult RemoveRoom(string roomName)
+        [Route(nameof(DeleteChatConnection))]
+        public IActionResult DeleteChatConnection(Guid connectionId)
         {
-            if (roomName == null || !ModelState.IsValid) { return BadRequest(); }
+            if (connectionId == Guid.Empty || !ModelState.IsValid) { return BadRequest(); }
 
             try
             {
-                var entity = _context.Rooms.SingleOrDefault(p => p.RoomName == roomName);
+                var entity = _context.ChatConnections.SingleOrDefault(p => p.ConnectionId == connectionId);
                 if (entity == null)
                 {
                     return NotFound();
                 }
 
-                _context.Rooms.Remove(entity);
+                _context.ChatConnections.Remove(entity);
                 _context.SaveChanges();
                 return Ok();
             }

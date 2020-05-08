@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using OnlineChatRoom.Common.DTOs;
+using OnlineChatRoom.Common.DTO;
 
 namespace OnlineChatRoom.IServices
 {

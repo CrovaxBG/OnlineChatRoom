@@ -2,7 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using OnlineChatRoom.Common.DTOs;
+using OnlineChatRoom.Common.DTO;
 using OnlineChatRoom.DataAccess.Models;
 
 namespace OnlineChatRoom.Infrastructure.Controllers

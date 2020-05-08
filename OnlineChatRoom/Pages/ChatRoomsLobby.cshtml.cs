@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OnlineChatRoom.Common.DTOs;
+using OnlineChatRoom.Common.DTO;
 using OnlineChatRoom.IServices;
 
 namespace OnlineChatRoom.Pages

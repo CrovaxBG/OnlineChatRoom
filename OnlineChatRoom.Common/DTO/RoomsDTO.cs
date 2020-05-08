@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineChatRoom.Common.DTO;
+﻿using System.Collections.Generic;
 
-namespace OnlineChatRoom.Common.DTOs
+namespace OnlineChatRoom.Common.DTO
 {
     public class RoomsDTO
     {
         public string RoomName { get; set; }
         public bool IsPrivate { get; set; }
 
-        public List<ConnectionsDTO> Connections { get; set; }
+        public List<ChatConnectionsDTO> Connections { get; set; }
     }
 }
