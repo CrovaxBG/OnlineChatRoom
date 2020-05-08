@@ -8,7 +8,7 @@ namespace OnlineChatRoom.DataAccess.Models
     public partial class ChatContext : IdentityDbContext<AspNetUsers, AspNetRoles, string, AspNetUserClaims,
         AspNetUserRoles, AspNetUserLogins, AspNetRoleClaims, AspNetUserTokens>
     {
-        public virtual DbSet<Connections> Connections { get; set; }
+        public virtual DbSet<ChatConnections> ChatConnections { get; set; }
         public virtual DbSet<Rooms> Rooms { get; set; }
         public virtual DbSet<Log> Log { get; set; }
 
@@ -144,11 +144,13 @@ namespace OnlineChatRoom.DataAccess.Models
                     .HasConstraintName("FK_AspNetUsersSession_AspNetUsers");
             });
 
-            modelBuilder.Entity<Connections>(entity =>
+            modelBuilder.Entity<ChatConnections>(entity =>
             {
-                entity.Property(e => e.RoomName)
-                    .IsRequired()
-                    .HasMaxLength(128);
+                entity.HasKey(e => e.ConnectionId);
+
+                entity.Property(e => e.ConnectionId).ValueGeneratedNever();
+
+                entity.Property(e => e.RoomName).HasMaxLength(128);
 
                 entity.Property(e => e.UserAgent).HasMaxLength(256);
 
@@ -157,16 +159,15 @@ namespace OnlineChatRoom.DataAccess.Models
                     .HasMaxLength(100);
 
                 entity.HasOne(d => d.RoomNameNavigation)
-                    .WithMany(p => p.Connections)
+                    .WithMany(p => p.ChatConnections)
                     .HasForeignKey(d => d.RoomName)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Connections_Rooms");
+                    .HasConstraintName("FK_ChatConnections_Rooms");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Connections)
+                    .WithMany(p => p.ChatConnections)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Connections_AspNetUsers");
+                    .HasConstraintName("FK_ChatConnections_AspNetUsers");
             });
 
             modelBuilder.Entity<Rooms>(entity =>

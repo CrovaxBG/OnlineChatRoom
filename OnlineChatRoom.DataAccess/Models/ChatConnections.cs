@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace OnlineChatRoom.DataAccess.Models
 {
-    public partial class Connections
+    public partial class ChatConnections
     {
-        public int Id { get; set; }
+        public Guid ConnectionId { get; set; }
         public string UserId { get; set; }
         public string RoomName { get; set; }
         public string UserAgent { get; set; }

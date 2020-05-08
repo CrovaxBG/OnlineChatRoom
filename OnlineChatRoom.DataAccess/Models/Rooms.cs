@@ -7,12 +7,13 @@ namespace OnlineChatRoom.DataAccess.Models
     {
         public Rooms()
         {
-            Connections = new HashSet<Connections>();
+            ChatConnections = new HashSet<ChatConnections>();
         }
 
         public string RoomName { get; set; }
         public bool IsPrivate { get; set; }
 
-        public virtual ICollection<Connections> Connections { get; set; }
+        //
+        public virtual ICollection<ChatConnections> ChatConnections { get; set; }
     }
 }
