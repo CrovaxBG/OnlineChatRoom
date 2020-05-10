@@ -33,18 +33,18 @@ namespace OnlineChatRoom.Pages
             PopularRooms = new List<RoomsDTO>(rooms.OrderByDescending(dto => dto.ChatConnections.Count));
         }
 
-        public async Task<IActionResult> OnPostJoinExisting()
+        public async Task<IActionResult> OnPostJoinExisting(string roomName)
         {
-            if (string.IsNullOrEmpty(ExistingRoomName))
+            if (string.IsNullOrEmpty(roomName))
             {
                 ModelState.AddModelError(string.Empty, "A room name is required.");
                 return Page();
             }
 
-            var room = await _roomsService.GetRoomAsync(ExistingRoomName);
+            var room = await _roomsService.GetRoomAsync(roomName);
             if (room != null)
             {
-                return RedirectToAction("JoinChatRoom", "Chatting", routeValues: new { roomName = ExistingRoomName });
+                return RedirectToAction("JoinChatRoom", "Chatting", routeValues: new { roomName = roomName });
             }
 
             ModelState.AddModelError(string.Empty, "Such room doesn't exist :/");

@@ -14,25 +14,26 @@
         <div class="d-inline-block col-md-8">
             <div class="float-left" style="width: 40%;">
                 <h5>Join an existing room</h5>
-                <br/>
+                <br />
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" asp-for="ExistingRoomName" placeholder="Enter the room's name...">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary input-group-text float-right" asp-page-handler="JoinExisting">Join</button>
+                        <button type="submit" class="btn btn-primary input-group-text float-right" asp-page-handler="JoinExisting" asp-route-roomName="@Model.ExistingRoomName">Join</button>
                     </div>
                 </div>
-                <h2>Join popular rooms</h2>
+                <h5>Popular rooms</h5>
+                <hr/>
                 <div class="btn-group-vertical d-flex">
                     @foreach (var room in Model.PopularRooms)
                     {
-                        <button type="button" class="btn btn-primary btn-block rounded" style="margin-bottom: 5px;">@room.RoomName</button>
+                        <button type="submit" asp-page-handler="JoinExisting" asp-route-roomName="@room.RoomName" class="btn btn-primary btn-block rounded" style="margin-bottom: 5px;">@room.RoomName</button>
                     }
                 </div>
             </div>
 
             <div class="float-right" style="width: 40%;">
                 <h5>Create a new room</h5>
-                <br/>
+                <br />
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" asp-for="NewRoomName" placeholder="Enter the room's name...">
                     <div class="input-group-append">
