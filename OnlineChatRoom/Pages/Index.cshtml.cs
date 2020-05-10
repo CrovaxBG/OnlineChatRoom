@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Azure.Storage.Blobs;
@@ -13,6 +14,7 @@ namespace OnlineChatRoom.Pages
         private readonly BlobServiceClient _blobServiceClient;
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly SignInManager<AspNetUsers> _signInManager;
+        private readonly IMapper _mapper;
 
         [Required]
         [StringLength(64)]
@@ -25,11 +27,12 @@ namespace OnlineChatRoom.Pages
         [BindProperty]
         public string Password { get; set; }
 
-        public IndexModel(BlobServiceClient blobServiceClient, UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager)
+        public IndexModel(BlobServiceClient blobServiceClient, UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager, IMapper mapper)
         {
             _blobServiceClient = blobServiceClient;
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> OnGetAsync()

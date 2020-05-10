@@ -2,6 +2,8 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using OnlineChatRoom.Common.DTO;
 using OnlineChatRoom.DataAccess.Models;
 
@@ -22,9 +24,9 @@ namespace OnlineChatRoom.Infrastructure.Controllers
 
         [HttpGet]
         [Route(nameof(GetChatConnection))]
-        public IActionResult GetChatConnection(Guid connectionId)
+        public IActionResult GetChatConnection(string connectionId)
         {
-            if (connectionId == Guid.Empty) { return BadRequest(); }
+            if (string.IsNullOrEmpty(connectionId)) { return BadRequest(); }
 
             try
             {
@@ -62,11 +64,38 @@ namespace OnlineChatRoom.Infrastructure.Controllers
             }
         }
 
+        [HttpPut]
+        [Route(nameof(UpdateChatConnection))]
+        public IActionResult UpdateChatConnection(ChatConnectionsDTO connectionData)
+        {
+            if (!ModelState.IsValid) { return BadRequest(); }
+            try
+            {
+                var existingEntity =
+                    _context.ChatConnections.Include(c => c.RoomNameNavigation).SingleOrDefault(p => p.ConnectionId == connectionData.ConnectionId);
+                
+                if (existingEntity == null)
+                {
+                    return NotFound();
+                }
+
+                var newEntity = _mapper.Map<ChatConnections>(connectionData);
+                _mapper.Map(newEntity, existingEntity);
+                _context.SaveChanges();
+
+                return Ok(existingEntity.ConnectionId);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpDelete]
         [Route(nameof(DeleteChatConnection))]
-        public IActionResult DeleteChatConnection(Guid connectionId)
+        public IActionResult DeleteChatConnection(string connectionId)
         {
-            if (connectionId == Guid.Empty || !ModelState.IsValid) { return BadRequest(); }
+            if (string.IsNullOrEmpty(connectionId) || !ModelState.IsValid) { return BadRequest(); }
 
             try
             {

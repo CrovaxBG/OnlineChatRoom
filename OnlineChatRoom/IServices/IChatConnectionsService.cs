@@ -6,8 +6,9 @@ namespace OnlineChatRoom.IServices
 {
     public interface IChatConnectionsService
     {
-        Task<ChatConnectionsDTO> GetChatConnectionAsync(Guid connectionId);
-        Task DeleteChatConnectionAsync(Guid connectionId);
+        Task<ChatConnectionsDTO> GetChatConnectionAsync(string connectionId);
+        Task DeleteChatConnectionAsync(string connectionId);
         Task<string> CreateChatConnectionAsync(ChatConnectionsDTO connectionData);
+        Task UpdateChatConnectionAsync(ChatConnectionsDTO connectionData);
     }
 }

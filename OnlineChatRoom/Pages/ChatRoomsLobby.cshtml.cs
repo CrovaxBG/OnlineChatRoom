@@ -30,7 +30,7 @@ namespace OnlineChatRoom.Pages
         public async Task OnGet()
         {
             var rooms = await _roomsService.GetRoomsAsync();
-            PopularRooms = new List<RoomsDTO>(rooms.OrderByDescending(dto => dto.Connections.Count));
+            PopularRooms = new List<RoomsDTO>(rooms.OrderByDescending(dto => dto.ChatConnections.Count));
         }
 
         public async Task<IActionResult> OnPostJoinExisting()

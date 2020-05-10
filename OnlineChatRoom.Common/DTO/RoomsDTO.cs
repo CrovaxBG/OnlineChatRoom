@@ -7,6 +7,6 @@ namespace OnlineChatRoom.Common.DTO
         public string RoomName { get; set; }
         public bool IsPrivate { get; set; }
 
-        public List<ChatConnectionsDTO> Connections { get; set; }
+        public List<ChatConnectionsDTO> ChatConnections { get; set; }
     }
 }

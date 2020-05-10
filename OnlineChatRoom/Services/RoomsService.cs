@@ -21,7 +21,7 @@ namespace OnlineChatRoom.Services
 
         public async Task<RoomsDTO> GetRoomAsync(string name)
         {
-            var response = await _client.GetAsync($"{nameof(RoomsController.GetRooms)}?roomName={name}");
+            var response = await _client.GetAsync($"{nameof(RoomsController.GetRoom)}?roomName={name}");
 
             if (response.IsSuccessStatusCode)
             {

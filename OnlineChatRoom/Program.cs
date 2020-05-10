@@ -29,7 +29,7 @@ namespace OnlineChatRoom
                         config.AddAzureAppConfiguration(appConfigurationConnectionString);
                     });
 
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls().UseStartup<Startup>();
                 });
         }
     }

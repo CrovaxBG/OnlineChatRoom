@@ -137,11 +137,13 @@ namespace OnlineChatRoom
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+
                 endpoints.MapHub<Chat>("/signalRChat");
 
                 endpoints.MapControllerRoute(name: "chat",
                     pattern: "chat/{action}",
                     defaults: new { controller = "Chat", action = "index" });
+
                 endpoints.MapControllerRoute(name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

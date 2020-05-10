@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineChatRoom.Common.DTO;
 using OnlineChatRoom.DataAccess.Models;
 
@@ -42,7 +43,7 @@ namespace OnlineChatRoom.Infrastructure.Controllers
 
             try
             {
-                var room = _context.Rooms.FirstOrDefault(l => l.RoomName == roomName);
+                var room = _context.Rooms.Include(r => r.ChatConnections).FirstOrDefault(l => l.RoomName == roomName);
 
                 if (room == null)
                 {

@@ -449,3 +449,4 @@ D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\staticweba
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.dll
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.pdb
 D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.genruntimeconfig.cache
+D:\Projects\ASP\OnlineChatRoom\OnlineChatRoom\obj\Debug\netcoreapp3.0\OnlineChatRoom.MvcApplicationPartsAssemblyInfo.cs

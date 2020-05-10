@@ -21,6 +21,13 @@
                         <button type="submit" class="btn btn-primary input-group-text float-right" asp-page-handler="JoinExisting">Join</button>
                     </div>
                 </div>
+                <h2>Join popular rooms</h2>
+                <div class="btn-group-vertical d-flex">
+                    @foreach (var room in Model.PopularRooms)
+                    {
+                        <button type="button" class="btn btn-primary btn-block rounded" style="margin-bottom: 5px;">@room.RoomName</button>
+                    }
+                </div>
             </div>
 
             <div class="float-right" style="width: 40%;">
@@ -29,7 +36,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" asp-for="NewRoomName" placeholder="Enter the room's name...">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary input-group-text float-right" asp-page-handler="CreateNew">Join</button>
+                        <button type="submit" class="btn btn-primary input-group-text float-right" asp-page-handler="CreateNew">Create</button>
                     </div>
                 </div>
             </div>

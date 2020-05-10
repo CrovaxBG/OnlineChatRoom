@@ -4,7 +4,7 @@ namespace OnlineChatRoom.Common.DTO
 
     public class ChatConnectionsDTO
     {
-        public Guid Id
+        public string ConnectionId
         {
             get;
             set;

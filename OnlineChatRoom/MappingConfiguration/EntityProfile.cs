@@ -13,6 +13,10 @@ namespace OnlineChatRoom.MappingConfiguration
 
         private void EntityDtoMaps()
         {
+            CreateMap<Rooms, Rooms>();
+
+            CreateMap<ChatConnections, ChatConnections>();
+
             CreateMap<Log, LogDTO>()
                 .ReverseMap();
 

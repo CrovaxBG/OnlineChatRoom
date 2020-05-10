@@ -7,7 +7,7 @@ namespace OnlineChatRoom.DataAccess.Models
     {
         public Rooms()
         {
-            ChatConnections = new HashSet<ChatConnections>();
+            ChatConnections = new List<ChatConnections>();
         }
 
         public string RoomName { get; set; }

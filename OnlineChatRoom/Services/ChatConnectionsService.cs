@@ -17,7 +17,7 @@ namespace OnlineChatRoom.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<ChatConnectionsDTO> GetChatConnectionAsync(Guid connectionId)
+        public async Task<ChatConnectionsDTO> GetChatConnectionAsync(string connectionId)
         {
             var response = await _client.GetAsync($"{nameof(ChatConnectionsController.GetChatConnection)}?connectionId={connectionId}");
 
@@ -30,7 +30,7 @@ namespace OnlineChatRoom.Services
             return null;
         }
 
-        public async Task DeleteChatConnectionAsync(Guid connectionId)
+        public async Task DeleteChatConnectionAsync(string connectionId)
         {
             await _client.DeleteAsJsonAsync(nameof(ChatConnectionsController.DeleteChatConnection), connectionId);
         }
@@ -46,6 +46,11 @@ namespace OnlineChatRoom.Services
             }
 
             return null;
+        }
+
+        public async Task UpdateChatConnectionAsync(ChatConnectionsDTO connectionData)
+        {
+            var a = await _client.PutAsJsonAsync(nameof(ChatConnectionsController.UpdateChatConnection), connectionData);
         }
     }
 }
